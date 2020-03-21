@@ -27,8 +27,11 @@ class User extends Model {
         return this.hasMany('App/Models/BlogPost')
     }
     
-    person() {
-        return this.hasOne('App/Models/Person')
+    static async getOneById(id) {
+        const entity = await User.findOrFail(id)
+        const copy = JSON.parse(JSON.stringify(entity));
+        copy.password = null;
+        return copy
     }
     static search(params) {
 

@@ -6,9 +6,9 @@ const Schema = use('Schema')
         this.create('social_medias', table => {
             table.increments()
             table
-                .integer('person')
+                .integer('user_id')
                 .references('id')
-                .inTable('person')
+                .inTable('user')
             table.string('link')
             table.integer('type') // references constants
             // table.enu('type', Config.get('constants'))

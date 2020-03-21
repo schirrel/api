@@ -34,7 +34,7 @@ class SessionController {
             })
             return
         } 
-        const user = await User.find(found.rows[0].user_id)
+        const user = await User.getOneById(found.rows[0].user_id)
         response.send(user)
     }
 }

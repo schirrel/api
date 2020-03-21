@@ -7,8 +7,8 @@ class BlogPostController {
     }
 
     async pagination({ request }) {
-        /*console.log(request._qs)     
-        console.log(request._all)*/
+        console.log(request._qs)     
+        /*console.log(request._all)*/
         const blogPosts = await BlogPost.pagination(request._qs)
         return blogPosts
     }

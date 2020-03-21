@@ -31,16 +31,21 @@ Route.group(() => {
 
 Route.group(() => {
     Route.get('/blog_posts', 'BlogPostController.index')
-    Route.get('/blog_posts/pagination', 'BlogPostController.pagination')
     Route.get('/blog_posts/:id', 'BlogPostController.show')
     Route.post('/blog_posts', 'BlogPostController.store').validator('BlogPost')
     Route.put('/blog_posts/:id', 'BlogPostController.update').validator(
         'BlogPost'
     )
 }).middleware('auth')
-	
-Route.get('/person/:id', 'PersonController.get')
+
+
+Route.group(() => {
 Route.get('/user/:id', 'UserController.get')
+Route.put('/user/:id', 'UserController.store')
+}).middleware('auth')
 
 Route.get('constants/:type', 'ConstantsController.store')
 Route.get('/', () => 'Welcome to the GuildaTech')
+
+Route.get('/blog_posts/read/:id', 'BlogPostController.show')
+Route.get('/blog_posts/pagination', 'BlogPostController.pagination')

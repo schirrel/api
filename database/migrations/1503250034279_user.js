@@ -8,13 +8,11 @@ class UserSchema extends Schema {
             table.string('username').notNullable()
             .unique()
             table.string('name').notNullable()
-            table
-                .integer('person')
-                .unsigned()
-                .references('id')
-                .inTable('person')
             table.string('email').notNullable().unique()
-            table.string('password').notNullable()
+            table.string('password').notNullable()   
+            table.string('bio')
+            table.string('homepage')
+            table.string('contactEmail')
             table
                 .boolean('is_admin')
                 .defaultTo(false)

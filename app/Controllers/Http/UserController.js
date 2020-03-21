@@ -1,17 +1,18 @@
 /** @type {typeof import('@adonisjs/lucid/src/Lucid/Model')} */
 const User = use('App/Models/User')
-const Person = use('App/Models/Person')
 const Token = use('App/Models/Token')
 const Config = use('Config')
 const { errors } = Config.get('errors')
 
 class UserController {
     async store({ params, request }) {
-        const user = await Person.findOrFail(params.id)
-        const data = request.only(['email', 'username', 'name', 'password'])
-        user.merge(data)
+        const user = await User.findByOrFail('id',params.id)
+        const userData = request.only(['email', 'username', 'name', 'password', 'bio', 'homepage', 'contactEmail'])
+        if (userData.password == null) {
+            userData.password = user.password;
+        }
+        Object.assign(user, userData);
         await user.save()
-
         return user
     }
 
@@ -25,7 +26,7 @@ class UserController {
             return
         }
 
-        const found = await User.find(id)
+        const found = await User.getOneById(id)
         if (!found) {
             response.status(406).json({
                 error: errors.defaults.NOT_FOUND('user'),
@@ -43,7 +44,8 @@ class UserController {
             })
             return
         } 
-        const user = await User.find(found.user_id)
+        let id = found.user_id;
+        const user = await User.getOneById(id)
         response.send(user)
     }
 }

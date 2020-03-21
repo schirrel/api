@@ -7,8 +7,5 @@ class SocialMedia extends Model {
         super.boot()
     }
 
-    person() {
-        return this.belongsTo('App/Models/Person')
-    }
 }
 
